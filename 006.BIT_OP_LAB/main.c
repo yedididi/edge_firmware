@@ -70,7 +70,7 @@ void Main(void)
 
 	for(;;)
 	{
-	/* LED 반전 및 Delay, Delay는 0x80000으로 설정 */
+		/* LED 반전 및 Delay, Delay는 0x80000으로 설정 */
 		for (i = 0; i < 0x80000; i++) ;
 		Macro_Write_Block(GPIOB->ODR, 0x3, 0x0, 8);
 		for (i = 0; i < 0x80000; i++) ;
