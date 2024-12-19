@@ -51,8 +51,14 @@ $(OUT_ELF_FILE): $(OBJS)
 $(OBJS): $(ASRC) $(CSRC) $(HEADER)
 	$(CC) $(ASRC) $(CSRC) $(INCLUDE) $(CFLAGS) 
 
-clean :
+fclean :
 	rm -f $(OUT_BIN_FILE)
+	rm -f $(OUT_ELF_FILE)
+	rm -f $(OUT_MAP_FILE)
+	rm -f $(OBJS)
+	rm -f $(DUMP)
+
+clean :
 	rm -f $(OUT_ELF_FILE)
 	rm -f $(OUT_MAP_FILE)
 	rm -f $(OBJS)

@@ -475,13 +475,14 @@ void CAN_SCE_IRQHandler(void)
  * Return         : None
  *******************************************************************************/
 void EXTI9_5_IRQHandler(void)
-void EXTI9_5_IRQHandler(void)
 {
   // EXTI Pending을 확인하여 눌린키의 번호를 UART로 출력한다
-
+  Uart_Printf("%c\n", Macro_Extract_Area(EXTI->PR, 0x3, 6) + '0');
 
   // EXTI[7:6] pending 및 IRQ(EXTI9_5)의 pending clear
-
+  
+  EXTI->PR = 0x3<<6;
+  NVIC_ClearPendingIRQ(23);
 
 }
 

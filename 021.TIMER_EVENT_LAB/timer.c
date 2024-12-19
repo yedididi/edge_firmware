@@ -169,16 +169,16 @@ void TIM4_Repeat_Interrupt_Enable(int en, int time)
 		TIM4->ARR = TIME4_PLS_OF_1ms * time;
 		Macro_Set_Bit(TIM4->EGR,0);
 
-		// TIM4->SR ·¹Áö½ºÅÍ¿¡¼­ Timer Pending Clear
-
-		// NVIC¿¡¼­ 30¹ø ÀÎÅÍ·´Æ® Pending Clear => NVIC¿ë Macro »ç¿ë
-
-		// TIM4->DIER ·¹Áö½ºÅÍ¿¡¼­ Timer ÀÎÅÍ·´Æ® Çã¿ë
-
-		// NVIC¿¡¼­ 30¹ø ÀÎÅÍ·´Æ®¸¦ Çã¿ëÀ¸·Î ¼³Á¤ => NVIC¿ë Macro »ç¿ë
-
+		// TIM4->SR ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ Timer Pending Clear
+		Macro_Clear_Bit(TIM3->SR, 0);
+		// NVICï¿½ï¿½ï¿½ï¿½ 30ï¿½ï¿½ ï¿½ï¿½ï¿½Í·ï¿½Æ® Pending Clear => NVICï¿½ï¿½ Macro ï¿½ï¿½ï¿½
+		NVIC_ClearPendingIRQ(30);
+		// TIM4->DIER ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ Timer ï¿½ï¿½ï¿½Í·ï¿½Æ® ï¿½ï¿½ï¿½
+		Macro_Set_Bit(TIM4->DIER, 0);
+		// NVICï¿½ï¿½ï¿½ï¿½ 30ï¿½ï¿½ ï¿½ï¿½ï¿½Í·ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ => NVICï¿½ï¿½ Macro ï¿½ï¿½ï¿½
+		NVIC_EnableIRQ(30);
 		// TIM4 Start
-
+		TIM4_Repeat(800);
 	}
 
 	else

@@ -4,6 +4,7 @@
 #define PCLK1	(HCLK/2)
 #define TIMXCLK ((HCLK == PCLK1)?(PCLK1):(PCLK1*2))
 
+
 #define RAM_START	0x20000000
 #define RAM_END		0x20004FFF
 #define HEAP_BASE	(((unsigned int)&__ZI_LIMIT__ + 0x7) & ~0x7)

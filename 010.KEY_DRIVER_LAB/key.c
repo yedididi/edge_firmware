@@ -8,18 +8,26 @@ void Key_Poll_Init(void)
 
 int Key_Get_Pressed(void)
 {
-
+	return (Macro_Extract_Area(~(GPIOB->IDR), 0x3, 6));
 
 }
 
 void Key_Wait_Key_Released(void)
 {
-
+	while (1)
+	{
+		if (Macro_Extract_Area(~(GPIOB->IDR), 0x3, 6) == 0)
+			return ;
+	}
 
 }
 
 int Key_Wait_Key_Pressed(void)
 {
-
-
+	while (1)
+	{
+		int ret = Key_Get_Pressed();
+		if (ret)
+			return (ret);
+	}
 }

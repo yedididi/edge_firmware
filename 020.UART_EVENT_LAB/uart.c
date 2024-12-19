@@ -85,19 +85,17 @@ void Uart1_RX_Interrupt_Enable(int en)
 {
 	if(en)
 	{
-		// NVIC USART1 Pending clear
-
-		// USART1 RX interrupt enable
-
-		// NVIC USART1 interrupt enable
-
+		Macro_Set_Bit(USART1->CR1, 5);
+		NVIC_ClearPendingIRQ(37);
+		NVIC_EnableIRQ(37);
 	}
 
 	else
 	{
 		// USART1 interrupt disable
-
+		Macro_Clear_Bit(USART1->CR1, 5);
 		// NVIC USART1 interrupt disable
+		NVIC_ClearPendingIRQ(23);
 
 	}
 }

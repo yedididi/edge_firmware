@@ -480,6 +480,7 @@ void EXTI9_5_IRQHandler(void)
 {
 	Key_Value = Macro_Extract_Area(EXTI->PR, 0x3, 6);
 
+  Uart_Printf("%c\n", Key_Value);
 	EXTI->PR = 0x3<<6;
 	NVIC_ClearPendingIRQ(23);
 }

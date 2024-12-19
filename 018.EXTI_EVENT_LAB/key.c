@@ -52,21 +52,24 @@ void Key_ISR_Enable(int en)
 {
 	if(en)
 	{
-		// GPIO-B PortøÕ AFIO Clock Enable(RXX->APB2ENR)
+		// AFIO, Port-B Clock Enable
+		Macro_Set_Bit(RCC->APB2ENR, 0);
+		Macro_Set_Bit(RCC->APB2ENR, 3);
 
-		// PB[7:6]¿ª ¿‘∑¬¿∏∑Œ º≥¡§(GPIOB->CRL)
+		// // PB[7:6]ÏùÑ ÏûÖÎ†•ÏúºÎ°ú ÏÑ†Ïñ∏
+		Macro_Write_Block(GPIOB->CRL,0xff,0x44,24);
 
-		// PB[7:6]¿ª EXTI º“Ω∫∑Œ º≥¡§(AFIO->EXTICR[1])
+		// // PB[7:6]ÏùÑ EXTI ÏÜåÏä§Î°ú ÏÑ§Ï†ïÌïòÍ≥† Falling edge ÏÑ†ÌÉù, EXTI[7:6] Ïù∏ÌÑ∞ÎüΩÌä∏ ÌóàÏö©
+		Macro_Write_Block(AFIO->EXTICR[1],0xff,0x11,8); //6, 7Î≤à ÎåÄÌëúÎ•ºÎ•º bÌè¨Ìä∏Î°ú ÏÑ†ÌÉù
 
-		// EXT[7:6]¿ª Falling Edge∑Œ º≥¡§(EXTI->FTSR)
+		EXTI->PR = (0x3<<6); //pending clear
+		Macro_Write_Block(EXTI->FTSR,0x3,0x3,6); //
 
-		// EXT[7:6] ¿Œ≈Õ∑¥∆Æ Pending Clear(EXTI->PR)
+		// // EXTI[7:6] Pending Clear Î∞è NVICÏùò Ïù∏ÌÑ∞ÎüΩÌä∏ Pending clear
+		Macro_Write_Block(EXTI->IMR,0x3,0x3,6);
 
-		// IRQ #23 Pending Clear(CMSIS Function)
-
-		// EXT[7:6] ¿Œ≈Õ∑¥∆Æ «„øÎ(EXTI->IMR)
-
-		// IRQ #23 ¿Œ≈Õ∑¥∆Æ «„øÎ(CMSIS Function)
+		NVIC_ClearPendingIRQ(23);
+		NVIC_EnableIRQ(23);
 
 	}
 

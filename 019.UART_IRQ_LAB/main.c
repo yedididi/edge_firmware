@@ -20,12 +20,13 @@ void Main(void)
 
 	Key_ISR_Enable(1);
 
-	// NVIC USART1 Pending clear
+	//밑 두 줄은 사실 uart_init에서 다 한다다
+	Macro_Set_Bit(RCC->APB2ENR, 2);
+	Macro_Set_Bit(RCC->APB2ENR, 14);
 
-	// USART1 RX interrupt enable
-
-	// NVIC USART1 interrupt enable
-
+	Macro_Set_Bit(USART1->CR1, 5);
+	NVIC_ClearPendingIRQ(37);
+	NVIC_EnableIRQ(37);
 
 	for(;;)
 	{
